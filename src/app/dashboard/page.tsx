@@ -26,12 +26,26 @@ import { createClient } from "../../../supabase/server";
 
 // Define an interface based on your 'users_form' table schema
 interface UserForm {
-  id: number; // adjust the type if needed
+  id: number;
   created_at: string;
-  // add additional fields that your form includes, e.g.:
-  // name: string;
-  // email: string;
+  // add additional fields
 }
+
+// Helper function for consistent date formatting
+const formatDate = (dateString: string): string => {
+  if (!dateString) return "N/A";
+  try {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // getMonth() is 0-indexed
+    const year = date.getFullYear();
+
+    // Format as DD.MM.YYYY (Georgian style)
+    return `${day}.${month}.${year}`;
+  } catch (e) {
+    return dateString;
+  }
+};
 
 export default function Dashboard() {
   const router = useRouter();

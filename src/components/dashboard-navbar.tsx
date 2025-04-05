@@ -17,6 +17,7 @@ import {
   LayoutDashboard,
   GraduationCap,
   Sliders,
+  MessageSquare,
 } from "lucide-react";
 import { ThemeToggle } from "./ui/theme-toggle";
 import { usePathname } from "next/navigation";
@@ -106,6 +107,17 @@ export default function DashboardNavbar({
             >
               <Sliders className="h-4 w-4 mr-1" />
               სლაიდერი
+            </Link>
+            <Link
+              href="/dashboard/feedback"
+              className={`text-sm font-medium ${
+                isActive("/dashboard/feedback")
+                  ? "text-primary"
+                  : "text-foreground/70 hover:text-primary"
+              } flex items-center gap-1 transition-colors`}
+            >
+              <MessageSquare className="h-4 w-4 mr-1" />
+              შეფასებები
             </Link>
           </div>
         </div>

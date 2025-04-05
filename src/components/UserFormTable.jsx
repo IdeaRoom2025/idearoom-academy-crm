@@ -55,7 +55,14 @@ export default function UserFormTable({ usersFormData }) {
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
     try {
-      return format(new Date(dateString), "MMM d, yyyy");
+      // Manual formatting to ensure consistency between server and client
+      const date = new Date(dateString);
+      const day = date.getDate();
+      const month = date.getMonth() + 1; // getMonth() is 0-indexed
+      const year = date.getFullYear();
+
+      // Format as DD.MM.YYYY (Georgian style)
+      return `${day}.${month}.${year}`;
     } catch (e) {
       return dateString;
     }

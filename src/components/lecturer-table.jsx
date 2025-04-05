@@ -138,6 +138,22 @@ export default function LecturerTable({ lecturers: initialLecturers }) {
     }
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    try {
+      // Manual formatting to ensure consistency between server and client
+      const date = new Date(dateString);
+      const day = date.getDate();
+      const month = date.getMonth() + 1; // getMonth() is 0-indexed
+      const year = date.getFullYear();
+
+      // Format as DD.MM.YYYY (Georgian style)
+      return `${day}.${month}.${year}`;
+    } catch (e) {
+      return dateString;
+    }
+  };
+
   if (lecturers.length === 0) {
     return (
       <div className="mt-10 text-center">
@@ -200,11 +216,7 @@ export default function LecturerTable({ lecturers: initialLecturers }) {
                   {lecturer.fullName || "უსახელო"}
                 </TableCell>
                 <TableCell>{lecturer.field || "არ არის"}</TableCell>
-                <TableCell>
-                  {lecturer.created_at
-                    ? new Date(lecturer.created_at).toLocaleDateString()
-                    : "არ არის"}
-                </TableCell>
+                <TableCell>{formatDate(lecturer.created_at)}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end space-x-2">
                     <Link href={`/dashboard/lecturer/new/${lecturer.id}`}>
